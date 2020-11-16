@@ -8,7 +8,11 @@
 
 import UIKit
 
-class ConcentrationThemeChooserViewController: UIViewController, UISplitViewControllerDelegate {
+class ConcentrationThemeChooserViewController: VCLLoggingViewController, UISplitViewControllerDelegate {
+    
+    override var vclLoggingName: String {
+        return "ThemeChooser"
+    }
 
     let themes = [
         "Sports": "⚽️🏀🏈⚾️🎾🏐🏉🎱🏓⛷🎳⛳️",
@@ -17,11 +21,8 @@ class ConcentrationThemeChooserViewController: UIViewController, UISplitViewCont
     ]
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         splitViewController?.delegate = self
-    }
-    
-    private var splitViewDetailConcentrationViewController: ConcentrationViewController? {
-        return splitViewController?.viewControllers.last as? ConcentrationViewController
     }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
@@ -34,19 +35,24 @@ class ConcentrationThemeChooserViewController: UIViewController, UISplitViewCont
     }
 
     @IBAction func changeTheme(_ sender: Any) {
-        if let cvc = splitViewDetailConcentrationViewController {
-            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
-                cvc.theme = theme
-            }
-        } else if let cvc = lastSeguedToConcentrationViewController {
-            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
-                cvc.theme = theme
-            }
-            navigationController?.pushViewController(cvc, animated: true)
-        }
-         else {
+//        if let cvc = splitViewDetailConcentrationViewController {
+//            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
+//                cvc.theme = theme
+//            }
+//        } else if let cvc = lastSeguedToConcentrationViewController {
+//            if let themeName = (sender as? UIButton)?.currentTitle, let theme = themes[themeName] {
+//                cvc.theme = theme
+//            }
+//            navigationController?.pushViewController(cvc, animated: true)
+//        }
+//         else {
             performSegue(withIdentifier: "Choose Theme", sender: sender)
-        }
+//        }
+    }
+    
+    
+    private var splitViewDetailConcentrationViewController: ConcentrationViewController? {
+        return splitViewController?.viewControllers.last as? ConcentrationViewController
     }
     
     // Navigation
