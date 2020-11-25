@@ -28,7 +28,7 @@ class ConcentrationThemeChooserViewController: VCLLoggingViewController, UISplit
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         if let cvc = secondaryViewController as? ConcentrationViewController {
             if cvc.theme == nil {
-                return false
+                return true
             }
         }
         return false
